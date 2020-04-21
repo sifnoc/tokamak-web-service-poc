@@ -25,6 +25,19 @@ jobs:
             echo "AWS_SECRET_KEY = ${AWS_SECRET_KEY}" >> config.ini
             echo "[INSTANCE]" >> config.ini
             echo "REGION_NAME = ${AWS_REGION}" >> config.ini
+            echo "INSTANCE_TYPE = ${INSTANCE_TYPE} >> config.ini
+            echo "SECURITY_GROUP_ID = ${SECURITY_GROUP_ID}" >> config.ini
+            echo "KEY_NAME = ${KEY_NAME}" >> config.ini
+            echo "[SSH]" >> config.ini
+            echo "SSH_USERNAME = ${SSH_USERNAME}" >> config.ini
+            echo "SSH_PEMFILE = ${SSH_PEMFILE}" >> config.ini
+            echo "[SERVER]" >> config.ini
+            echo "DEBUG = True" >> config.ini
+            echo "SECRET_KEY = ${SECRET_KEY}" >> config.ini
+            echo "USERNAME = ${USERNAME}" >> config.ini
+            echo "PASSWORD = ${PASSWORD}" >> config.ini
+            echo "[DATABASE]" >> config.ini
+            echo "DATABASE = ${DATABASE}" >> config.ini
 
       - run:
           name: Run TWS server for test
@@ -35,7 +48,7 @@ jobs:
             python app.py
 
       - run:
-          name: Check Curl
+          name: Check running TWS server
           command: |
             curl --retry 10 --retry-delay 3 --retry-connrefused  http://127.0.0.1:8080
 
