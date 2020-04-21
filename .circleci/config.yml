@@ -26,7 +26,7 @@ jobs:
             echo "AWS_SECRET_KEY = ${AWS_SECRET_KEY}" >> config.ini
             echo "[INSTANCE]" >> config.ini
             echo "REGION_NAME = ${REGION_NAME}" >> config.ini
-            echo "INSTANCE_TYPE = ${INSTANCE_TYPE} >> config.ini
+            echo "INSTANCE_TYPE = ${INSTANCE_TYPE}" >> config.ini
             echo "SECURITY_GROUP_ID = ${SECURITY_GROUP_ID}" >> config.ini
             echo "KEY_NAME = ${KEY_NAME}" >> config.ini
             echo "[SSH]" >> config.ini
