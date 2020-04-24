@@ -1,4 +1,7 @@
 version: 2.1
+orbs:
+  aws-code-deploy: circleci/aws-code-deploy@1.0.1
+
 jobs:
   build-test:
     docker:
@@ -53,24 +56,14 @@ jobs:
           command: |
             curl --retry 10 --retry-delay 3 --retry-connrefused  http://127.0.0.1:8000
 
-  deploy:
-    docker:
-      - image: circleci/aws-code-deploy@1.0.1
-    steps:
-      - run:
-          name: deploy TWS dev instance
-          command: |
-            aws deploy create-deployment \
-                    --application-name TWS-dev \
-                    --deployment-group-name TWS \
-                    --github-location repository=sifnoc/tokamak-web-service-poc,commitId=$CIRCLE_SHA1
+      - checkout
+      - aws-code-deploy/create-application:
+          application-name: TWS-dev
+          arguments: --github-location repository=sifnoc/tokamak-web-service-poc,commitId=$CIRCLE_SHA1
 
 workflows:
   version: 2
   build-and-test:
     jobs:
       - build-test
-      - deploy:
-          requires:
-            - build-test
 
