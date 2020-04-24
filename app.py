@@ -1,10 +1,13 @@
+import os
+import sys
+import time
+
 import configparser
 import paramiko
 import boto3
-import time
-import sys
 
-config = configparser.ConfigParser()
+
+config = configparser.ConfigParser(interpolation=configparser.ExtendedInterpolation())
 config.read('config.ini')
 
 from io import StringIO
@@ -175,7 +178,7 @@ def config_ini_set():
 
         config['DATABASE']['DATABASE'] = database
 
-        with open('config.ini', 'w+') as configfile:
+        with open('utilities/config.ini', 'w+') as configfile:
             config.write(configfile)
 
     flash([time.ctime()[11:19] + " config.ini set!"])
