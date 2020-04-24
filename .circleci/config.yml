@@ -10,7 +10,7 @@ jobs:
           name: Clone repo and install requirements
           command: |
             set -x
-            git clone https://github.com/Onther-Tech/tokamak-web-service-poc
+            git clone -b $CIRCLE_BRANCH https://github.com/sifnoc/tokamak-web-service-poc
             cd tokamak-web-service-poc
             virtualenv venv && source venv/bin/activate
             pip install -r requirements.txt
@@ -69,6 +69,18 @@ jobs:
           command: |
             curl --retry 10 --retry-delay 3 --retry-connrefused  http://127.0.0.1:8000
 
+  deploy:
+    docker:
+      - image: circleci/aws-code-deploy@1.0.1
+    steps:
+      - run:
+          name: deploy TWS dev instance
+          command: |
+            aws deploy create-deployment \
+                    --application-name TWS-dev \
+                    --deployment-group-name TWS \
+                    --github-location repository=sifnoc/tokamak-web-service-poc,commitId=$CIRCLE_SHA1
+
 workflows:
   version: 2
   build-and-test:
@@ -77,3 +89,7 @@ workflows:
       - test:
           requires:
             - build
+      - deploy:
+          requires:
+            - test
+
