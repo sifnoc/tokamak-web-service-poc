@@ -21,8 +21,8 @@ jobs:
             cd tokamak-web-service-poc
             echo ${AWS_TWS_DEV} > tws_dev.pem
             echo "[AWS]" >> config.ini
-            echo "AWS_ACCESS_KEY = ${AWS_ACCESS_KEY}" >> config.ini
-            echo "AWS_SECRET_KEY = ${AWS_SECRET_KEY}" >> config.ini
+            echo "AWS_ACCESS_KEY = ${AWS_ACCESS_KEY_ID}" >> config.ini
+            echo "AWS_SECRET_KEY = ${AWS_SECRET_ACCESS_KEY}" >> config.ini
             echo "[INSTANCE]" >> config.ini
             echo "BASIC_IMAGE_ID = ${BASIC_IMAGE_ID}" >> config.ini
             echo "INSTANCE_TYPE = ${INSTANCE_TYPE}" >> config.ini
