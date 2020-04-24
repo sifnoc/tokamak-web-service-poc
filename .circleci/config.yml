@@ -56,7 +56,6 @@ jobs:
           command: |
             curl --retry 10 --retry-delay 3 --retry-connrefused  http://127.0.0.1:8000
 
-      - checkout
       - aws-code-deploy/create-application:
           application-name: TWS-dev
           arguments: --github-location repository=sifnoc/tokamak-web-service-poc,commitId=$CIRCLE_SHA1
