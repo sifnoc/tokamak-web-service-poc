@@ -13,7 +13,8 @@ jobs:
             git clone -b $CIRCLE_BRANCH https://github.com/sifnoc/tokamak-web-service-poc
             cd tokamak-web-service-poc
             virtualenv venv && source venv/bin/activate
-            pip install -r requirements.txt
+            sudo -H pip install -r requirements.txt
+            sudo -H pip install scp
 
       - run:
           name: Create key and config file
@@ -44,6 +45,7 @@ jobs:
           key: plasma-evm-{{ .Environment.CIRCLE_SHA1 }}
           paths:
             - ~/
+            - /root
 
   test:
     docker:
@@ -55,13 +57,14 @@ jobs:
           key: plasma-evm-{{ .Environment.CIRCLE_SHA1 }}
           paths:
             - ~/
+            - /root
 
       - run:
           name: Run TWS server for test
           background: true
           command: |
             source venv/bin/activate
-            python app.py
+            sudo python app.py
 
       - run:
           name: Check running TWS server
