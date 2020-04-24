@@ -60,7 +60,6 @@ jobs:
           name: Run TWS server for test
           background: true
           command: |
-            cd tokamak-web-service-poc
             source venv/bin/activate
             python app.py
 
