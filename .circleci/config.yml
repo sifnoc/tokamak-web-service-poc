@@ -45,6 +45,7 @@ jobs:
           name: Run TWS server for test
           background: true
           command: |
+            cd tokamak-web-service-poc
             sudo python app.py
 
       - run:
